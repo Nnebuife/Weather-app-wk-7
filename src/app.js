@@ -14,7 +14,7 @@ currentDate.innerHTML =`${day}, ${hours} : ${minutes}`;
 
 
 let apiKey = "302c93e3e9e39b90c8c02a8d733c82ec"
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Montreal&appid=${apiKey}&units=metric`
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
 
 function getWeather(response) {
     let tempElement = document.querySelector("#main-temp");
@@ -32,10 +32,23 @@ function getWeather(response) {
     
 }
 
-axios.get(apiUrl).then(getWeather);
+function search(city) {
+    let apiKey = "302c93e3e9e39b90c8c02a8d733c82ec"
+    let apiUrlCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
 
+    axios.get(apiUrlCity).then(getWeather);
+}
 
+function handleSubmit(event) {event.preventDefault();
+    let cityInputElement = document.querySelector("#city-input");
+    search(cityInputElement.value);
     
+}
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
+
+search("New York");
 
 
 
