@@ -15,12 +15,21 @@ margin: 0;
 padding: 0;}
 
 .current-temp{font-weight: 40px;
-font-size: 60px;}
+font-size: 50px;
+}
 
 .units{font-size: 15px;
 font-weight: 15px;
+vertical-align: top;
 }
+
+.fahr{font-size: 15px;
+    font-weight: 15px;
+vertical-align: top;}
 
 .weather-app{max-width: 600px;
 margin: 30px auto;
 }
+
+#icon{max-width: 40px;
+vertical-align: text-bottom;}
