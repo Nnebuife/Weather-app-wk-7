@@ -22,6 +22,9 @@ function getWeather(response) {
     let windElement = document.querySelector("#speed-wind");
     let cityElement = document.querySelector("#city")
     let iconELement = document.querySelector("#icon")
+
+    celsiusTemp = response.data.main.temp;
+
     tempElement.innerHTML = Math.round(response.data.main.temp);
     descriptionElement.innerHTML = response.data.weather[0].description;
     windElement.innerHTML = Math.round(response.data.wind.speed);
@@ -45,8 +48,28 @@ function handleSubmit(event) {event.preventDefault();
     
 }
 
+
+function displayFahr(event) {event.preventDefault();
+        let fahrTemp = (celsiusTemp * 1.8) + 32;
+    let temperatureElement = document.querySelector("#main-temp");
+    temperatureElement.innerHTML = Math.round(fahrTemp);
+}
+
+function displayCel(event) {event.preventDefault();
+    let CelTemp = document.querySelector("#main-temp");
+    CelTemp.innerHTML = Math.round(celsiusTemp);
+}
+
+let celsiusTemp = null;
+
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
+
+let fahrLink = document.querySelector("#fahr-value");
+fahrLink.addEventListener("click", displayFahr);
+
+let celsuisLink = document.querySelector("#celsius-value");
+celsuisLink.addEventListener("click", displayCel);
 
 search("New York");
 
