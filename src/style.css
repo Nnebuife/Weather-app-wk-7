@@ -31,5 +31,7 @@ vertical-align: top;}
 margin: 30px auto;
 }
 
+.forecast-temp{text-align: center;}
+
 #icon{max-width: 40px;
 vertical-align: text-bottom;}
