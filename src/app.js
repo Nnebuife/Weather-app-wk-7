@@ -11,6 +11,27 @@ if (minutes<10) {minutes = `0${minutes}`;}
 let currentDate = document.querySelector("#current-day");
 currentDate.innerHTML =`${day}, ${hours} : ${minutes}`;
 
+function forecastWeather() {
+    let displayForecast = document.querySelector("#forecast");
+    let forecastHTML = `<div class ="row">`;
+    let days = ["Thu", "Fri", "Sat", "Sun","Mon"];
+    days.forEach(function (day) {
+        forecastHTML += `<div class="col-2">
+        <div class="day-temp">${day} </div>
+            <img src="https://openweathermap.org/img/wn/04n@2x.png" alt=" " width="36"/>
+            <div class="temp-forecast">
+                <span class="temp-forecast-max">18°</span>
+            <span class="temp-forecast-min">11°</span>
+            </div>
+            
+        </div>`;
+                
+    });
+
+    forecastHTML = forecastHTML + `</div>`;
+    displayForecast.innerHTML = forecastHTML;
+    
+}
 
 
 let apiKey = "302c93e3e9e39b90c8c02a8d733c82ec"
@@ -29,7 +50,7 @@ function getWeather(response) {
     descriptionElement.innerHTML = response.data.weather[0].description;
     windElement.innerHTML = Math.round(response.data.wind.speed);
     cityElement.innerHTML = response.data.name;
-    iconELement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+    iconELement.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
     iconELement.setAttribute("alt", response.data.weather[0].description);
     
     
@@ -72,7 +93,7 @@ let celsuisLink = document.querySelector("#celsius-value");
 celsuisLink.addEventListener("click", displayCel);
 
 search("New York");
-
+forecastWeather();
 
 
 
