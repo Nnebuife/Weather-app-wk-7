@@ -9,22 +9,30 @@ if (minutes<10) {minutes = `0${minutes}`;}
 let currentDate = document.querySelector("#current-day");
 currentDate.innerHTML =`${day}, ${hours} : ${minutes}`;
 
+function formatDay(timestamp) {let date = new Date(timestamp * 1000);
+    let day = date.getDay();
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-function forecastWeather() {
+    return days[day];
+    
+}
+
+function forecastWeather(response) {
+    let forecast = response.data.daily;
     let displayForecast = document.querySelector("#forecast");
     let forecastHTML = `<div class ="row">`;
-    let days = ["Thu", "Fri", "Sat", "Sun","Mon"];
-    days.forEach(function (day) {
+    forecast.forEach(function(forecastDay, index) {if(index < 6){
         forecastHTML += `<div class="col-2">
-        <div class="day-temp">${day} </div>
-            <img src="https://openweathermap.org/img/wn/04n@2x.png" alt=" " width="36"/>
+        <div class="day-temp">${formatDay(forecastDay.dt)} </div>
+            <img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt=" " width="36"/>
             <div class="temp-forecast">
-                <span class="temp-forecast-max">18°</span>
-            <span class="temp-forecast-min">11°</span>
+                <span class="temp-forecast-max"> ${Math.round(forecastDay.temp.max)}°</span>
+            <span class="temp-forecast-min">${Math.round(forecastDay.temp.min)}°</span>
             </div>
             
         </div>`;
                 
+    }
     });
 
     forecastHTML = forecastHTML + `</div>`;
@@ -34,7 +42,7 @@ function forecastWeather() {
 
 function getForecast(coordinates) {
     let apiKey = "302c93e3e9e39b90c8c02a8d733c82ec";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
     
     axios.get(apiUrl).then(forecastWeather);
 }
